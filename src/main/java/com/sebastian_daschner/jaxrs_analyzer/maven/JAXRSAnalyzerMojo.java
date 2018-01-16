@@ -16,11 +16,17 @@
 
 package com.sebastian_daschner.jaxrs_analyzer.maven;
 
-import com.sebastian_daschner.jaxrs_analyzer.JAXRSAnalyzer;
-import com.sebastian_daschner.jaxrs_analyzer.LogProvider;
-import com.sebastian_daschner.jaxrs_analyzer.backend.Backend;
-import com.sebastian_daschner.jaxrs_analyzer.backend.StringBackend;
-import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerOptions;
+import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
@@ -33,12 +39,11 @@ import org.eclipse.aether.resolution.ArtifactRequest;
 import org.eclipse.aether.resolution.ArtifactResolutionException;
 import org.eclipse.aether.resolution.ArtifactResult;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import com.sebastian_daschner.jaxrs_analyzer.JAXRSAnalyzer;
+import com.sebastian_daschner.jaxrs_analyzer.LogProvider;
+import com.sebastian_daschner.jaxrs_analyzer.backend.Backend;
+import com.sebastian_daschner.jaxrs_analyzer.backend.StringBackend;
+import com.sebastian_daschner.jaxrs_analyzer.backend.swagger.SwaggerOptions;
 
 import static java.util.Collections.singleton;
 import static java.util.stream.Collectors.joining;
@@ -214,6 +219,8 @@ public class JAXRSAnalyzerMojo extends AbstractMojo {
                 return BackendType.PLAINTEXT;
             case "asciidoc":
                 return BackendType.ASCIIDOC;
+            case "markdown":
+                return BackendType.MARKDOWN;
             case "swagger":
                 return BackendType.SWAGGER;
             default:
